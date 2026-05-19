@@ -57,26 +57,30 @@ export async function submitContact(
     data.message,
   ].filter((l): l is string => l !== null)
 
-  await transporter.sendMail({
-    from: `"Valdence Digital" <${process.env.SMTP_USER}>`,
-    to: process.env.SMTP_TO,
-    replyTo: data.email,
-    subject: `Nouveau contact — ${data.prenom} ${data.nom}`,
-    text: lines.join('\n'),
-    html: `
-      <h2>Nouveau contact — Valdence Digital</h2>
-      <table cellpadding="6">
-        <tr><td><strong>Nom</strong></td><td>${data.nom}</td></tr>
-        <tr><td><strong>Prénom</strong></td><td>${data.prenom}</td></tr>
-        ${data.entreprise ? `<tr><td><strong>Entreprise</strong></td><td>${data.entreprise}</td></tr>` : ''}
-        <tr><td><strong>Email</strong></td><td><a href="mailto:${data.email}">${data.email}</a></td></tr>
-        <tr><td><strong>Code postal</strong></td><td>${data.codePostal}</td></tr>
-        <tr><td><strong>Téléphone</strong></td><td>${data.telephone}</td></tr>
-      </table>
-      <h3>Message</h3>
-      <p>${data.message.replace(/\n/g, '<br>')}</p>
-    `,
-  })
+  try {
+    await transporter.sendMail({
+      from: `"Valdence Digital" <${process.env.SMTP_USER}>`,
+      to: process.env.SMTP_TO,
+      replyTo: data.email,
+      subject: `Nouveau contact — ${data.prenom} ${data.nom}`,
+      text: lines.join('\n'),
+      html: `
+        <h2>Nouveau contact — Valdence Digital</h2>
+        <table cellpadding="6">
+          <tr><td><strong>Nom</strong></td><td>${data.nom}</td></tr>
+          <tr><td><strong>Prénom</strong></td><td>${data.prenom}</td></tr>
+          ${data.entreprise ? `<tr><td><strong>Entreprise</strong></td><td>${data.entreprise}</td></tr>` : ''}
+          <tr><td><strong>Email</strong></td><td><a href="mailto:${data.email}">${data.email}</a></td></tr>
+          <tr><td><strong>Code postal</strong></td><td>${data.codePostal}</td></tr>
+          <tr><td><strong>Téléphone</strong></td><td>${data.telephone}</td></tr>
+        </table>
+        <h3>Message</h3>
+        <p>${data.message.replace(/\n/g, '<br>')}</p>
+      `,
+    })
+  } catch {
+    return { error: "Une erreur est survenue lors de l'envoi. Veuillez réessayer." }
+  }
 
   return { success: true }
 }
