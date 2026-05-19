@@ -60,7 +60,7 @@ export default function Navbar() {
         {/* Mobile burger button */}
         <button
           className="md:hidden p-2 text-foreground"
-          aria-label="Ouvrir le menu"
+          aria-label={menuOpen ? 'Fermer le menu' : 'Ouvrir le menu'}
           aria-expanded={menuOpen}
           onClick={() => setMenuOpen(!menuOpen)}
         >

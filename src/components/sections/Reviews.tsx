@@ -46,8 +46,8 @@ export default async function Reviews() {
 
       {result.ok && result.reviews.length > 0 ? (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {result.reviews.map((review, i) => (
-            <ReviewCard key={i} review={review} />
+          {result.reviews.map((review) => (
+            <ReviewCard key={`${review.authorName}-${review.time}`} review={review} />
           ))}
         </div>
       ) : (
