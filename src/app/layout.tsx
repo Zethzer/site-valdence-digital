@@ -24,6 +24,7 @@ export const metadata: Metadata = {
       'Sites vitrines, e-commerce, applications web et consulting technique — Yannick Bernard, développeur full-stack indépendant depuis 2014.',
     type: 'website',
     locale: 'fr_FR',
+    images: [{ url: '/og-image.png', width: 1200, height: 630 }],
   },
 }
 
