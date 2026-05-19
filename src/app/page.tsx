@@ -5,6 +5,7 @@ import WhyUs from '@/components/sections/WhyUs'
 import Portfolio from '@/components/sections/Portfolio'
 import About from '@/components/sections/About'
 import Reviews from '@/components/sections/Reviews'
+import Contact from '@/components/sections/Contact'
 
 export default function Home() {
   return (
@@ -16,6 +17,7 @@ export default function Home() {
       <Portfolio />
       <About />
       <Reviews />
+      <Contact />
     </main>
   )
 }
