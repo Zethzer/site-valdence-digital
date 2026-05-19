@@ -1,10 +1,10 @@
 'use client'
 
 import { useEffect, useState } from 'react'
-import Image from 'next/image'
+import LogoDark from '@/components/ui/LogoDark'
 
 const navLinks = [
-  { label: 'Services', href: '#services' },
+  { label: 'Mes services', href: '#services' },
   { label: 'Pourquoi Valdence', href: '#why-us' },
   { label: 'Réalisations', href: '#portfolio' },
   { label: 'À propos', href: '#about' },
@@ -33,7 +33,7 @@ export default function Navbar() {
         aria-label="Navigation principale"
       >
         <a href="#" aria-label="Valdence Digital — retour en haut">
-          <Image src="/logo-dark.svg" alt="Valdence Digital" width={140} height={35} priority />
+          <LogoDark className="h-14 w-auto" />
         </a>
 
         {/* Desktop nav links */}

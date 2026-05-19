@@ -1,3 +1,5 @@
+import type { ComponentType } from 'react'
+import Image from 'next/image'
 import Link from 'next/link'
 import type { SimpleIcon } from 'simple-icons'
 import SectionWrapper from '@/components/ui/SectionWrapper'
@@ -8,19 +10,25 @@ import {
   siTypescript,
   siPostgresql,
   siWordpress,
+  siOvh,
 } from 'simple-icons'
+import IconCSharp from '@/components/ui/IconCSharp'
 
-type TechItem = { icon: SimpleIcon | null; label: string }
+type TechItem = {
+  label: string
+  icon?: SimpleIcon
+  CustomIcon?: ComponentType<{ className?: string }>
+}
 
 const techStack: TechItem[] = [
-  { icon: null, label: 'C#' },
+  { label: 'C#', CustomIcon: IconCSharp },
   { icon: siDotnet, label: '.NET' },
   { icon: siNextdotjs, label: 'Next.js' },
   { icon: siReact, label: 'React' },
   { icon: siTypescript, label: 'TypeScript' },
   { icon: siPostgresql, label: 'PostgreSQL' },
-  { icon: null, label: 'SQL Server' },
   { icon: siWordpress, label: 'WordPress' },
+  { icon: siOvh, label: 'OVHcloud' },
 ]
 
 const linkedInPath =
@@ -29,8 +37,8 @@ const linkedInPath =
 export default function About() {
   return (
     <SectionWrapper id="about">
-      <p className="text-xs font-dm-sans tracking-[0.3em] text-teal uppercase mb-3">
-        Qui sommes-nous
+      <p className="text-base font-dm-sans tracking-[0.3em] text-teal uppercase mb-3">
+        Qui suis-je
       </p>
       <h2 className="font-sora text-3xl md:text-4xl font-bold text-foreground mb-12">
         À propos
@@ -38,18 +46,23 @@ export default function About() {
 
       <div className="flex flex-col md:flex-row gap-12 items-start">
         {/* Photo + identity */}
-        <div className="flex-shrink-0 flex flex-col items-center md:items-start">
-          <div className="w-48 h-48 rounded-2xl bg-gradient-to-br from-teal/20 to-teal/5 border-2 border-teal/20 flex items-center justify-center">
-            {/* Replace with <Image src="/photo-yannick.webp" ... /> when photo is available */}
-            <span className="font-sora text-5xl font-bold text-teal/40">YB</span>
+        <div className="shrink-0 flex flex-col items-center md:items-start">
+          <div className="w-48 h-48 rounded-2xl overflow-hidden border-2 border-teal/20">
+            <Image
+              src="/photo_yb.webp"
+              alt="Yannick Bernard"
+              width={192}
+              height={192}
+              className="object-cover w-full h-full"
+            />
           </div>
           <p className="font-sora font-bold text-foreground text-lg mt-4">Yannick Bernard</p>
-          <p className="font-dm-sans text-sm text-teal">CEO</p>
+          <p className="font-dm-sans text-base text-teal">CEO</p>
           <Link
             href="https://www.linkedin.com/in/bernardyannick/"
             target="_blank"
             rel="nofollow noopener noreferrer"
-            className="mt-3 inline-flex items-center gap-2 text-sm font-dm-sans text-muted hover:text-teal transition-colors"
+            className="mt-3 inline-flex items-center gap-2 text-base font-dm-sans text-muted hover:text-teal transition-colors"
             aria-label="Profil LinkedIn de Yannick Bernard"
           >
             <svg role="img" viewBox="0 0 24 24" className="w-4 h-4 fill-current" aria-hidden="true">
@@ -83,27 +96,28 @@ export default function About() {
 
           {/* Tech badges */}
           <div className="mt-10 pt-8 border-t border-gray-100">
-            <p className="text-xs font-dm-sans tracking-[0.2em] text-muted uppercase mb-4">
+            <p className="text-base font-dm-sans tracking-[0.2em] text-muted uppercase mb-4">
               Technologies
             </p>
             <div className="flex flex-wrap gap-3">
-              {techStack.map(({ icon, label }) => (
+              {techStack.map(({ icon, CustomIcon, label }) => (
                 <div
                   key={label}
-                  className="flex items-center gap-2 px-3 py-1.5 rounded-full border border-gray-200 bg-white hover:border-teal/40 transition-colors"
+                  className="flex items-center gap-3 px-4 py-2 rounded-full border border-gray-200 bg-white hover:border-teal/40 transition-colors"
                 >
+                  {CustomIcon && <CustomIcon className="w-5 h-5 shrink-0" aria-hidden="true" />}
                   {icon && (
                     <svg
                       role="img"
                       viewBox="0 0 24 24"
-                      className="w-4 h-4 shrink-0"
+                      className="w-5 h-5 shrink-0"
                       aria-hidden="true"
                       style={{ fill: `#${icon.hex}` }}
                     >
                       <path d={icon.path} />
                     </svg>
                   )}
-                  <span className="text-xs font-dm-sans text-foreground/80">{label}</span>
+                  <span className="text-base font-dm-sans text-foreground/80">{label}</span>
                 </div>
               ))}
             </div>

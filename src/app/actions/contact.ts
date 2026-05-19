@@ -1,15 +1,18 @@
 'use server'
 
 import nodemailer from 'nodemailer'
-import { validateContactForm, type ContactFormData } from '@/lib/contact-validation'
+import { contactSchema } from '@/lib/contact-validation'
 
 export type ContactFormState = {
   success?: boolean
   error?: string
 }
 
-function extractFormData(formData: FormData): ContactFormData {
-  return {
+export async function submitContact(
+  _prevState: ContactFormState,
+  formData: FormData
+): Promise<ContactFormState> {
+  const raw = {
     nom: (formData.get('nom') as string) ?? '',
     prenom: (formData.get('prenom') as string) ?? '',
     entreprise: (formData.get('entreprise') as string) ?? '',
@@ -20,21 +23,19 @@ function extractFormData(formData: FormData): ContactFormData {
     website: (formData.get('website') as string) ?? '',
     rgpd: (formData.get('rgpd') as string) ?? '',
   }
-}
-
-export async function submitContact(
-  _prevState: ContactFormState,
-  formData: FormData
-): Promise<ContactFormState> {
-  const data = extractFormData(formData)
 
   // Honeypot: silently reject without feedback
-  if (data.website) return { success: true }
+  if (raw.website) return { success: true }
 
-  const error = validateContactForm(data)
-  if (error) return { error }
+  const result = contactSchema.safeParse(raw)
+  if (!result.success) {
+    return { error: result.error.issues[0].message }
+  }
+
+  const data = result.data
 
   const port = Number(process.env.SMTP_PORT ?? 465)
+
   const transporter = nodemailer.createTransport({
     host: process.env.SMTP_HOST,
     port,

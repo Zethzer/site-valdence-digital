@@ -33,7 +33,7 @@ export async function getGoogleReviews(): Promise<ReviewsResult> {
   const placeId = process.env.GOOGLE_PLACE_ID
   const placeUrl = placeId
     ? `https://www.google.com/maps/place/?q=place_id:${placeId}`
-    : 'https://www.google.com/maps'
+    : 'https://maps.google.com/?cid=3543542288884001866'
 
   if (!apiKey || !placeId) return { ok: false, placeUrl }
 

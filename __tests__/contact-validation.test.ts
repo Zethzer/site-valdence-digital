@@ -1,4 +1,4 @@
-import { validateContactForm } from '@/lib/contact-validation'
+import { contactSchema } from '@/lib/contact-validation'
 
 const valid = {
   nom: 'Bernard',
@@ -12,54 +12,50 @@ const valid = {
   rgpd: 'on',
 }
 
-describe('validateContactForm', () => {
-  it('returns null for valid complete data', () => {
-    expect(validateContactForm(valid)).toBeNull()
+function firstError(data: object): string | undefined {
+  const result = contactSchema.safeParse(data)
+  if (result.success) return undefined
+  return result.error.issues[0].message
+}
+
+describe('contactSchema', () => {
+  it('parses valid complete data', () => {
+    expect(contactSchema.safeParse(valid).success).toBe(true)
   })
 
-  it('returns null when entreprise is empty (optional field)', () => {
-    expect(validateContactForm({ ...valid, entreprise: '' })).toBeNull()
-  })
-
-  it('returns null silently when honeypot is filled', () => {
-    expect(validateContactForm({ ...valid, website: 'spam' })).toBeNull()
+  it('accepts when entreprise is empty (optional)', () => {
+    expect(contactSchema.safeParse({ ...valid, entreprise: '' }).success).toBe(true)
   })
 
   it('returns error when nom is missing', () => {
-    expect(validateContactForm({ ...valid, nom: '' })).toBe(
-      'Tous les champs obligatoires doivent être remplis.'
-    )
+    expect(firstError({ ...valid, nom: '' })).toBe('Le nom est requis')
   })
 
-  it('returns error when prenom is missing', () => {
-    expect(validateContactForm({ ...valid, prenom: '   ' })).toBe(
-      'Tous les champs obligatoires doivent être remplis.'
-    )
+  it('returns error when prenom is whitespace only', () => {
+    expect(firstError({ ...valid, prenom: '   ' })).toBe('Le prénom est requis')
   })
 
   it('returns error for invalid email', () => {
-    expect(validateContactForm({ ...valid, email: 'pas-un-email' })).toBe(
-      'Adresse email invalide.'
-    )
+    expect(firstError({ ...valid, email: 'pas-un-email' })).toBe('Adresse email invalide')
   })
 
   it('returns error for phone too short', () => {
-    expect(validateContactForm({ ...valid, telephone: '1234' })).toBe(
-      'Numéro de téléphone invalide.'
-    )
+    expect(firstError({ ...valid, telephone: '1234' })).toBe('Numéro de téléphone invalide')
   })
 
   it('accepts national format 0612345678', () => {
-    expect(validateContactForm({ ...valid, telephone: '0612345678' })).toBeNull()
+    expect(contactSchema.safeParse({ ...valid, telephone: '0612345678' }).success).toBe(true)
   })
 
   it('accepts +33 with spaces', () => {
-    expect(validateContactForm({ ...valid, telephone: '+33 6 12 34 56 78' })).toBeNull()
+    expect(contactSchema.safeParse({ ...valid, telephone: '+33 6 12 34 56 78' }).success).toBe(true)
   })
 
   it('returns error when RGPD not accepted', () => {
-    expect(validateContactForm({ ...valid, rgpd: '' })).toBe(
-      'Vous devez accepter les conditions RGPD.'
-    )
+    expect(firstError({ ...valid, rgpd: '' })).toBe('Vous devez accepter les conditions RGPD.')
+  })
+
+  it('returns error when message is empty', () => {
+    expect(firstError({ ...valid, message: '' })).toBe('Le message est requis')
   })
 })

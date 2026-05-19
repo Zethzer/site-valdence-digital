@@ -22,7 +22,7 @@ Créer un site one-page professionnel pour **Valdence Digital** présentant les 
 
 | Couche | Choix |
 |---|---|
-| Framework | Next.js 15 (App Router) |
+| Framework | Next.js 16 (App Router) |
 | Langage | TypeScript |
 | Styles | Tailwind CSS |
 | Formulaire | Server Action + Nodemailer (SMTP OVH) |
@@ -162,7 +162,7 @@ Grille de 2 projets (extensible) :
 | 1 | Sagesse Holistique | Site vitrine | https://www.sagesse-holistique.fr/ |
 | 2 | Jonathan Deymier | Refonte WordPress | https://www.jonathandeymier.com/ |
 
-Chaque carte : capture d'écran placée dans `public/portfolio/` (format WebP recommandé, dimensions 800×500px), titre, catégorie badgée, bouton "Voir le site →" (lien externe, `target="_blank"`).
+Chaque carte : capture d'écran placée dans `public/portfolio/` (format WebP recommandé, dimensions 800×500px), titre, catégorie badgée, bouton "Voir le site →" (lien externe, `target="_blank"`, `rel="nofollow noopener noreferrer`).
 
 ### 7.6 À propos
 
@@ -178,7 +178,7 @@ Disposition : photo (placeholder carré arrondi) à gauche + texte à droite (de
 >
 > Ce qui me distingue : je ne sous-traite pas vos besoins, je les comprends. Chaque projet démarre par une vraie conversation — pour livrer quelque chose qui vous ressemble et qui fonctionne.
 
-**Lien :** [LinkedIn](https://www.linkedin.com/in/bernardyannick/) — icône + texte, `target="_blank"`
+**Lien :** [LinkedIn](https://www.linkedin.com/in/bernardyannick/) — icône + texte, `target="_blank"`, `rel="nofollow noopener noreferrer`
 
 **Badges technologiques** (rangée en bas de la section) :
 Icônes SVG via **Simple Icons** (bibliothèque open-source) + nom pour chaque techno : `C#` · `.NET` · `Next.js` · `React` · `TypeScript` · `PostgreSQL` · `SQL Server` · `WordPress`
@@ -188,7 +188,7 @@ Icônes SVG via **Simple Icons** (bibliothèque open-source) + nom pour chaque t
 - Fetch côté serveur (Server Component) via **Google Places API**
 - Affichage : étoiles (★★★★★), texte de l'avis, prénom auteur, date formatée en français
 - **Gestion d'erreur :** si l'appel API échoue (timeout, quota, clé manquante), affichage d'un message neutre + bouton **"Voir nos avis sur Google Maps"** renvoyant vers la fiche Google Business
-- Stratégie de fetch : **ISR** avec `revalidate = 3600` (les avis se rafraîchissent toutes les heures sans rebuild)
+- Stratégie de fetch : **ISR** avec `revalidate = 86400` (les avis se rafraîchissent tous les jours sans rebuild)
 
 ### 7.8 Contact
 
@@ -205,7 +205,7 @@ Icônes SVG via **Simple Icons** (bibliothèque open-source) + nom pour chaque t
 | Code postal | text | Oui |
 | Téléphone | tel | Oui (format +33) |
 | Message | textarea | Oui (placeholder : "Dites-nous en plus sur votre projet") |
-| `website` (honeypot) | text | Caché (CSS `display:none`), doit rester vide |
+| `website` (honeypot) | text | Caché via décalage hors du viewport de 2612px car les robots détectent le display:none, doit rester vide |
 | RGPD | checkbox | Oui |
 
 **Texte RGPD :**
@@ -235,7 +235,7 @@ Build multi-stage avec `output: 'standalone'` dans `next.config.ts` :
 
 ```dockerfile
 # Stage 1 — Builder
-FROM node:20-alpine AS builder
+FROM node:lts-slim AS builder
 WORKDIR /app
 COPY package*.json ./
 RUN npm ci
@@ -243,7 +243,7 @@ COPY . .
 RUN npm run build
 
 # Stage 2 — Runner
-FROM node:20-alpine AS runner
+FROM node:lts-slim AS runner
 WORKDIR /app
 ENV NODE_ENV=production
 COPY --from=builder /app/.next/standalone ./

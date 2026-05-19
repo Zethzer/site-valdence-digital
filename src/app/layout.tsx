@@ -15,6 +15,7 @@ const dmSans = DM_Sans({
 })
 
 export const metadata: Metadata = {
+  metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL ?? 'https://digital.valdence.com'),
   title: 'Valdence Digital — Développement web & consulting',
   description:
     'Sites vitrines, e-commerce, applications web et consulting technique — Yannick Bernard, développeur full-stack indépendant depuis 2014.',
