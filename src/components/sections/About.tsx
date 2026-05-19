@@ -1,4 +1,5 @@
 import Link from 'next/link'
+import type { SimpleIcon } from 'simple-icons'
 import SectionWrapper from '@/components/ui/SectionWrapper'
 import {
   siDotnet,
@@ -9,12 +10,16 @@ import {
   siWordpress,
 } from 'simple-icons'
 
-const techStack = [
+type TechItem = { icon: SimpleIcon | null; label: string }
+
+const techStack: TechItem[] = [
+  { icon: null, label: 'C#' },
   { icon: siDotnet, label: '.NET' },
   { icon: siNextdotjs, label: 'Next.js' },
   { icon: siReact, label: 'React' },
   { icon: siTypescript, label: 'TypeScript' },
   { icon: siPostgresql, label: 'PostgreSQL' },
+  { icon: null, label: 'SQL Server' },
   { icon: siWordpress, label: 'WordPress' },
 ]
 
@@ -87,15 +92,17 @@ export default function About() {
                   key={label}
                   className="flex items-center gap-2 px-3 py-1.5 rounded-full border border-gray-200 bg-white hover:border-teal/40 transition-colors"
                 >
-                  <svg
-                    role="img"
-                    viewBox="0 0 24 24"
-                    className="w-4 h-4 flex-shrink-0"
-                    aria-hidden="true"
-                    style={{ fill: `#${icon.hex}` }}
-                  >
-                    <path d={icon.path} />
-                  </svg>
+                  {icon && (
+                    <svg
+                      role="img"
+                      viewBox="0 0 24 24"
+                      className="w-4 h-4 shrink-0"
+                      aria-hidden="true"
+                      style={{ fill: `#${icon.hex}` }}
+                    >
+                      <path d={icon.path} />
+                    </svg>
+                  )}
                   <span className="text-xs font-dm-sans text-foreground/80">{label}</span>
                 </div>
               ))}
