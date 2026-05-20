@@ -14,7 +14,7 @@ export const contactSchema = z.object({
       (v) => /^(\+33|0033|0)[1-9][0-9]{8}$/.test(v.replace(/[\s.\-()]/g, '')),
       'Numéro de téléphone invalide'
     ),
-  message: z.string().trim().min(20, 'Le message est requis').max(2000, 'Le message doit faire moins de 2000 caractères'),
+  message: z.string().trim().min(1, 'Le message est requis').min(20, 'Le message doit faire au moins 20 caractères').max(2000, 'Le message doit faire moins de 2000 caractères'),
   website: z.string().optional().default(''),
   rgpd: z.string().refine((v) => v === 'on', 'Vous devez accepter les conditions RGPD.'),
 })
