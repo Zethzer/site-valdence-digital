@@ -1,5 +1,5 @@
 # Stage 1 — Dependencies + build
-FROM node:lts-slim AS builder
+FROM node:lts AS builder
 WORKDIR /app
 
 COPY package*.json pnpm-lock.yaml* ./
