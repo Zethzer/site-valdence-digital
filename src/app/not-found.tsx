@@ -1,4 +1,5 @@
 import type { Metadata } from 'next'
+import Link from 'next/link'
 import Navbar from '@/components/sections/Navbar'
 import Footer from '@/components/sections/Footer'
 
@@ -21,12 +22,12 @@ export default function NotFound() {
         <p className="font-dm-sans text-muted text-base max-w-sm mb-10">
           La page que vous recherchez n&apos;existe pas ou a été déplacée.
         </p>
-        <a
+        <Link
           href="/"
           className="px-8 py-3 bg-teal text-white font-dm-sans font-semibold text-base rounded-sm hover:bg-teal/90 transition-colors"
         >
           Retour à l&apos;accueil →
-        </a>
+        </Link>
       </section>
       <Footer />
     </main>

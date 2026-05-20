@@ -43,12 +43,12 @@ export default function PolitiqueConfidentialite() {
               <li>Adresse email</li>
               <li>Numéro de téléphone</li>
               <li>Code postal</li>
-              <li>Nom de l'entreprise (facultatif)</li>
+              <li>Nom de l&apos;entreprise (facultatif)</li>
               <li>Message libre relatif à votre projet</li>
             </ul>
             <p className="mt-2">
-              Aucune autre donnée n'est collectée. Ce site n'utilise <strong>aucun cookie</strong>, traceur ou
-              outil d'analyse d'audience.
+              Aucune autre donnée n&apos;est collectée. Ce site n&apos;utilise <strong>aucun cookie</strong>, traceur ou
+              outil d&apos;analyse d&apos;audience.
             </p>
           </section>
 
@@ -58,7 +58,7 @@ export default function PolitiqueConfidentialite() {
             <ul className="mt-2 space-y-1 ml-4 list-disc">
               <li>Répondre à votre demande de contact ou de devis</li>
               <li>Étudier la faisabilité de votre projet</li>
-              <li>Vous recontacter dans le cadre d'une éventuelle collaboration professionnelle</li>
+              <li>Vous recontacter dans le cadre d&apos;une éventuelle collaboration professionnelle</li>
             </ul>
             <p className="mt-2">
               Ces données ne sont jamais utilisées à des fins commerciales, publicitaires ou de prospection.
@@ -87,7 +87,7 @@ export default function PolitiqueConfidentialite() {
             <p>
               Vos données personnelles sont destinées exclusivement à <strong>Valdence Digital</strong>. Elles ne sont
               ni vendues, ni cédées, ni louées à des tiers. Elles peuvent être transmises à des sous-traitants
-              techniques strictement nécessaires à l'exploitation du service (hébergeur OVH Cloud) dans le respect
+              techniques strictement nécessaires à l&apos;exploitation du service (hébergeur OVH Cloud) dans le respect
               du RGPD.
             </p>
           </section>
@@ -95,7 +95,7 @@ export default function PolitiqueConfidentialite() {
           <section>
             <h2 className="font-sora text-xl font-semibold text-foreground mb-3">7. Transfert hors Union Européenne</h2>
             <p>
-              Vos données ne font l'objet d'aucun transfert en dehors de l'Union Européenne. L'ensemble des
+              Vos données ne font l&apos;objet d&apos;aucun transfert en dehors de l&apos;Union Européenne. L&apos;ensemble des
               infrastructures utilisées sont hébergées en France (OVH Cloud, datacenter de Paris).
             </p>
           </section>
@@ -103,8 +103,8 @@ export default function PolitiqueConfidentialite() {
           <section>
             <h2 className="font-sora text-xl font-semibold text-foreground mb-3">8. Cookies et traceurs</h2>
             <p>
-              Ce site n'utilise <strong>aucun cookie</strong>, ni traceur, ni outil de mesure d'audience. Aucune
-              donnée de navigation n'est collectée ou stockée sur votre terminal.
+              Ce site n&apos;utilise <strong>aucun cookie</strong>, ni traceur, ni outil de mesure d&apos;audience. Aucune
+              donnée de navigation n&apos;est collectée ou stockée sur votre terminal.
             </p>
           </section>
 
@@ -115,24 +115,24 @@ export default function PolitiqueConfidentialite() {
               loi Informatique et Libertés, vous disposez des droits suivants concernant vos données personnelles :
             </p>
             <ul className="mt-2 space-y-1 ml-4 list-disc">
-              <li><strong>Droit d'accès :</strong> obtenir une copie de vos données</li>
+              <li><strong>Droit d&apos;accès :</strong> obtenir une copie de vos données</li>
               <li><strong>Droit de rectification :</strong> corriger des données inexactes ou incomplètes</li>
-              <li><strong>Droit à l'effacement :</strong> demander la suppression de vos données</li>
+              <li><strong>Droit à l&apos;effacement :</strong> demander la suppression de vos données</li>
               <li><strong>Droit à la limitation :</strong> restreindre le traitement de vos données</li>
-              <li><strong>Droit d'opposition :</strong> vous opposer au traitement de vos données</li>
+              <li><strong>Droit d&apos;opposition :</strong> vous opposer au traitement de vos données</li>
               <li><strong>Droit à la portabilité :</strong> recevoir vos données dans un format structuré</li>
               <li><strong>Droit de retrait du consentement :</strong> à tout moment, sans effet rétroactif</li>
             </ul>
             <p className="mt-3">
-              Pour exercer ces droits, contactez-nous à l'adresse suivante :{' '}
+              Pour exercer ces droits, contactez-nous à l&apos;adresse suivante :{' '}
               <a href="mailto:contact@valdence.com" className="text-teal hover:underline">
                 contact@valdence.com
               </a>
             </p>
             <p className="mt-2">
-              Nous nous engageons à répondre à votre demande dans un délai d'un mois. Si vous estimez que vos droits
+              Nous nous engageons à répondre à votre demande dans un délai d&apos;un mois. Si vous estimez que vos droits
               ne sont pas respectés, vous pouvez introduire une réclamation auprès de la{' '}
-              <strong>CNIL</strong> (Commission Nationale de l'Informatique et des Libertés) :{' '}
+              <strong>CNIL</strong> (Commission Nationale de l&apos;Informatique et des Libertés) :{' '}
               <span className="text-muted">www.cnil.fr</span>
             </p>
           </section>
