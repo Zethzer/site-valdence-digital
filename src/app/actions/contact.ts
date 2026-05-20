@@ -12,8 +12,6 @@ export async function submitContact(
   _prevState: ContactFormState,
   formData: FormData
 ): Promise<ContactFormState> {
-  console.log('[contact] action triggered')
-
   const raw = {
     nom: (formData.get('nom') as string) ?? '',
     prenom: (formData.get('prenom') as string) ?? '',
@@ -26,45 +24,17 @@ export async function submitContact(
     rgpd: (formData.get('rgpd') as string) ?? '',
   }
 
-  console.log('[contact] raw fields:', {
-    nom: raw.nom,
-    prenom: raw.prenom,
-    email: raw.email,
-    codePostal: raw.codePostal,
-    telephone: raw.telephone,
-    entreprise: raw.entreprise,
-    messageLength: raw.message.length,
-    rgpd: raw.rgpd,
-    website: raw.website || '(empty)',
-  })
-
   // Honeypot: silently reject without feedback
-  if (raw.website) {
-    console.log('[contact] honeypot triggered, rejecting silently')
-    return { success: true }
-  }
+  if (raw.website) return { success: true }
 
   const result = contactSchema.safeParse(raw)
   if (!result.success) {
-    console.log('[contact] zod validation failed:', result.error.issues)
     return { error: result.error.issues[0].message }
   }
-
-  console.log('[contact] validation passed')
 
   const data = result.data
 
   const port = Number(process.env.SMTP_PORT ?? 465)
-
-  console.log('[contact] env vars:', {
-    SMTP_HOST: process.env.SMTP_HOST ?? '(undefined)',
-    SMTP_PORT: process.env.SMTP_PORT ?? '(undefined)',
-    SMTP_USER: process.env.SMTP_USER ?? '(undefined)',
-    SMTP_PASS: process.env.SMTP_PASS ?? '(undefined)',
-    SMTP_TO: process.env.SMTP_TO ?? '(undefined)',
-    port_computed: port,
-    secure: port === 465,
-  })
 
   const transporter = nodemailer.createTransport({
     host: process.env.SMTP_HOST,
@@ -75,8 +45,6 @@ export async function submitContact(
       pass: process.env.SMTP_PASS,
     },
   })
-
-  console.log('[contact] transporter created, attempting sendMail...')
 
   const lines = [
     `Nom : ${data.nom}`,
@@ -94,7 +62,7 @@ export async function submitContact(
     s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;')
 
   try {
-    const info = await transporter.sendMail({
+    await transporter.sendMail({
       from: `"Valdence Digital" <${process.env.SMTP_USER}>`,
       to: process.env.SMTP_TO,
       replyTo: data.email,
@@ -114,9 +82,7 @@ export async function submitContact(
         <p>${esc(data.message).replace(/\n/g, '<br>')}</p>
       `,
     })
-    console.log('[contact] sendMail success, messageId:', info.messageId)
-  } catch (err) {
-    console.error('[contact] sendMail error:', err)
+  } catch {
     return { error: "Une erreur est survenue lors de l'envoi. Veuillez réessayer." }
   }
 
