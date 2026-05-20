@@ -53,7 +53,7 @@ export default function About() {
               alt="Yannick Bernard"
               width={192}
               height={192}
-              className="object-cover object-top w-full h-full"
+              className="object-cover w-full h-full"
             />
           </div>
           <p className="font-sora font-bold text-foreground text-lg mt-4">Yannick Bernard</p>
