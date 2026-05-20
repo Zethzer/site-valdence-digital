@@ -1,5 +1,5 @@
 # Stage 1 — Dependencies + build
-FROM node:20-alpine AS builder
+FROM node:lts-slim AS builder
 WORKDIR /app
 
 COPY package*.json pnpm-lock.yaml* ./
@@ -9,7 +9,7 @@ COPY . .
 RUN pnpm build
 
 # Stage 2 — Production runner
-FROM node:20-alpine AS runner
+FROM node:lts-slim AS runner
 WORKDIR /app
 
 ENV NODE_ENV=production
