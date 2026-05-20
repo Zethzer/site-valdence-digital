@@ -74,7 +74,7 @@ export default function About() {
 
         {/* Bio */}
         <div className="flex-1">
-          <div className="space-y-4 font-dm-sans text-muted leading-relaxed">
+          <div className="space-y-4 font-dm-sans bg-white text-muted leading-relaxed">
             <p>
               Développeur full-stack indépendant depuis 2014, je conçois et réalise des sites
               vitrines, boutiques en ligne, applications web et intégrations sur mesure. Mon
