@@ -9,7 +9,7 @@ COPY . .
 RUN pnpm build
 
 # Stage 2 — Production runner
-FROM node:lts-slim AS runner
+FROM node:lts AS runner
 WORKDIR /app
 
 ENV NODE_ENV=production
