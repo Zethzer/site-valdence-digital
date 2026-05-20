@@ -49,7 +49,7 @@ export default function About() {
         <div className="shrink-0 flex flex-col items-center md:items-start">
           <div className="w-48 h-48 rounded-2xl overflow-hidden border-2 border-teal/20">
             <Image
-              src="/photo_yb.webp"
+              src="/photo_yb_v2.webp"
               alt="Yannick Bernard"
               width={192}
               height={192}
