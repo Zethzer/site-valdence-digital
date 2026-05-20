@@ -53,7 +53,7 @@ export default function About() {
               alt="Yannick Bernard"
               width={192}
               height={192}
-              className="object-cover w-full h-full"
+              className="object-cover object-top w-full h-full"
             />
           </div>
           <p className="font-sora font-bold text-foreground text-lg mt-4">Yannick Bernard</p>
@@ -74,7 +74,7 @@ export default function About() {
 
         {/* Bio */}
         <div className="flex-1">
-          <div className="space-y-4 font-dm-sans bg-white text-muted leading-relaxed">
+          <div className="bg-white rounded-xl p-6 border border-gray-100 shadow-sm space-y-4 font-dm-sans text-muted leading-relaxed">
             <p>
               Développeur full-stack indépendant depuis 2014, je conçois et réalise des sites
               vitrines, boutiques en ligne, applications web et intégrations sur mesure. Mon
