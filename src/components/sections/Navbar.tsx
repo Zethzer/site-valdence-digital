@@ -1,6 +1,7 @@
 'use client'
 
 import { useEffect, useState } from 'react'
+import { usePathname } from 'next/navigation'
 import LogoDark from '@/components/ui/LogoDark'
 
 const navLinks = [
@@ -15,6 +16,9 @@ const navLinks = [
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false)
   const [menuOpen, setMenuOpen] = useState(false)
+  const pathname = usePathname()
+  const isHome = pathname === '/'
+  const href = (anchor: string) => (isHome ? anchor : `/${anchor}`)
 
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 20)
@@ -32,7 +36,7 @@ export default function Navbar() {
         className="max-w-6xl mx-auto px-4 md:px-8 h-16 flex items-center justify-between"
         aria-label="Navigation principale"
       >
-        <a href="#" aria-label="Valdence Digital — retour en haut">
+        <a href={isHome ? '#' : '/'} aria-label="Valdence Digital — retour en haut">
           <LogoDark className="h-14 w-auto" />
         </a>
 
@@ -41,7 +45,7 @@ export default function Navbar() {
           {navLinks.map((link) => (
             <li key={link.href}>
               <a
-                href={link.href}
+                href={href(link.href)}
                 className="text-sm font-dm-sans text-foreground/70 hover:text-teal transition-colors"
               >
                 {link.label}
@@ -51,7 +55,7 @@ export default function Navbar() {
         </ul>
 
         <a
-          href="#contact"
+          href={href('#contact')}
           className="hidden md:inline-flex px-5 py-2 bg-teal text-white text-sm font-semibold font-dm-sans rounded-sm hover:bg-teal/90 transition-colors"
         >
           Parlons de votre projet
@@ -77,7 +81,7 @@ export default function Navbar() {
             {navLinks.map((link) => (
               <li key={link.href}>
                 <a
-                  href={link.href}
+                  href={href(link.href)}
                   className="block text-sm font-dm-sans text-foreground/70 hover:text-teal py-1"
                   onClick={() => setMenuOpen(false)}
                 >
@@ -87,7 +91,7 @@ export default function Navbar() {
             ))}
           </ul>
           <a
-            href="#contact"
+            href={href('#contact')}
             className="mt-4 block text-center px-5 py-2 bg-teal text-white text-sm font-semibold font-dm-sans rounded-sm"
             onClick={() => setMenuOpen(false)}
           >
