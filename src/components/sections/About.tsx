@@ -95,7 +95,7 @@ export default function About() {
           </div>
 
           {/* Tech badges */}
-          <div className="mt-10 pt-8 border-t border-gray-100">
+          <div className="mt-10 pt-8 border-t border-teal/20">
             <p className="text-base font-dm-sans tracking-[0.2em] text-muted uppercase mb-4">
               Technologies
             </p>
